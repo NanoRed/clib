@@ -1,0 +1,28 @@
+{
+    "files.associations": {
+        "float.h": "c",
+        "string.h": "c",
+        "cstdint": "cpp",
+        "stdint.h": "c",
+        "inttypes.h": "c",
+        "ctype.h": "c",
+        "cstdio": "cpp",
+        "ioctl.h": "c",
+        "stdarg.h": "c",
+        "limits": "c",
+        "*.tcc": "c",
+        "type_traits": "c",
+        "stdatomic.h": "c",
+        "threads.h": "c",
+        "limits.h": "c",
+        "stdbool.h": "c",
+        "stdalign.h": "c",
+        "iso646.h": "c",
+        "stdio.h": "c",
+        "stdnoreturn.h": "c",
+        "stddef.h": "c",
+        "math.h": "c",
+        "tgmath.h": "c",
+        "stdlib.h": "c"
+    }
+}
