@@ -6,54 +6,35 @@
 bool TestList(void)
 {
     List *list;
-    if (!InitList(&list)) {
-        return false;
-    }
+    InitList(&list, FreeListItem, MatchListItem);
 
-    Item *item;
+    Item *prevItem = NULL;
+    Item *newItem;
     double number;
-    register int i = 1;
-    for (; i < 10; i++) {
+    for (register int i = 1; i < 10; i++) {
         number = rand()/100.0;
-        if (!CreateItem(&item, i, number)) {
-            return false;
-        }
-        if (!InsertListItem(list, item, FindFirstNode)) {
-            return false;
-        }
+        MakeListItem(&newItem, i, number);
+        InsertListItem(list, newItem, prevItem);
+        prevItem = newItem;
         printf("insert item: %d %f\n", i, number);
     }
 
-    void *dummy;
-    if (!DeleteListItem(list, dummy, FindDeleteNode, FreeListItem)) {
-        return false;
-    }
-    if (!DeleteListItem(list, dummy, FindDeleteNode, FreeListItem)) {
-        return false;
-    }
-    if (!DeleteListItem(list, dummy, FindDeleteNode, FreeListItem)) {
-        return false;
-    }
+    Item tmpItem;
+    tmpItem.id = 3;
+    DeleteListItem(list, &tmpItem);
+    tmpItem.id = 4;
+    DeleteListItem(list, &tmpItem);
+    tmpItem.id = 5;
+    DeleteListItem(list, &tmpItem);
 
-    if (!Traverse(list, Display)) {
-        return false;
-    }
-    if (!FreeList(list, FreeListItem)) {
-        return false;
-    }
+    Traverse(list, Display);
+    FreeList(list);
 
     return true;
 }
 
-bool FindDeleteNode(const void *item)
-{
-    if (((Item *)item)->id%3 == 0) {
-        return true;
-    }
-    return false;
-}
 
-bool CreateItem(Item **item, int id, double number)
+bool MakeListItem(Item **item, int id, double number)
 {
     Item *newItem;
     newItem = (Item *)malloc(sizeof(Item));
@@ -63,18 +44,20 @@ bool CreateItem(Item **item, int id, double number)
     return true;
 }
 
-bool FindFirstNode(const void *item)
-{
-    if (item == NULL) {
-        return true;
-    }
-    return false;
-}
-
 bool FreeListItem(void *item)
 {
     free(item);
     return true;
+}
+
+bool MatchListItem(const void *itemInList, const void *item)
+{
+    if (item == NULL) {
+        return itemInList == item;
+    } else if (itemInList == NULL) {
+        return false;
+    }
+    return ((Item *)itemInList)->id == ((Item *)item)->id;
 }
 
 bool Display(const void *item)

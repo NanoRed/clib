@@ -10,10 +10,9 @@ typedef struct item {
 
 bool TestList(void);
 
-bool CreateItem(Item **item, int id, double number);
-bool FindDeleteNode(const void *item);
-bool FindFirstNode(const void *item);
+bool MakeListItem(Item **item, int id, double number);
 bool FreeListItem(void *item);
+bool MatchListItem(const void *itemInList, const void *item);
 bool Display(const void *item);
 
 #endif

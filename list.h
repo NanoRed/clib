@@ -10,20 +10,19 @@ typedef struct listNode {
 
 typedef struct list {
     ListNode *head;
-    int len;
+    unsigned int len;
+    bool (* free)(void *item);
+    bool (* match)(const void *itemInList, const void *item);
 } List;
 
-bool InitList(List **list);
-bool FreeList(List *list, bool (* freeListItem)(void *item));
-bool ResetList(List *list, bool (* freeListItem)(void *item));
+bool InitList(List **list, bool (* free)(void *item), bool (* match)(const void *itemInList, const void *item));
+bool FreeList(List *list);
+bool ResetList(List *list);
 bool MakeListNode(ListNode **node, void *item);
-bool FreeListNode(ListNode *node, void **item);
-bool FindListNode(const List *list, ListNode **node, bool (* locateListItem)(const void *item));
-bool InsertListNode(List *list, ListNode *node, bool (* locateListItem)(const void *item));
-bool DeleteListNode(List *list, ListNode *node, bool (* locateListItem)(const void *item));
-bool FindListItem(const List *list, void **item, bool (* locateListItem)(const void *item));
-bool InsertListItem(List *list, void *item, bool (* locateListItem)(const void *item));
-bool DeleteListItem(List *list, void *item, bool (* locateListItem)(const void *item), bool (* freeListItem)(void *item));
-bool Traverse(List *list, bool (* handle)(const void *item));
+bool FreeListNode(ListNode *node);
+bool FindListItem(const List *list, void **item, const void *findItem);
+bool InsertListItem(List *list, void *item, const void *afterThisItem);
+bool DeleteListItem(List *list, void *findItem);
+bool Traverse(List *list, bool (* invoke)(const void *item));
 
 #endif
