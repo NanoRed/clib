@@ -8,8 +8,8 @@
 			"args": [
 				"-g",
 				"${file}",
-				"list.c",
-				"list_test.c",
+				"linked_list.c",
+				"linked_list_test.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],

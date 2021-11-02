@@ -1,11 +1,11 @@
-#include "list_test.h"
-#include "list.h"
+#include "linked_list_test.h"
+#include "linked_list.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 bool TestList(void)
 {
-    List *list;
+    LinkedList *list;
     InitList(&list, FreeListItem, MatchListItem);
 
     Item *prevItem = NULL;
@@ -20,11 +20,11 @@ bool TestList(void)
     }
 
     Item tmpItem;
-    tmpItem.id = 3;
-    DeleteListItem(list, &tmpItem);
     tmpItem.id = 4;
     DeleteListItem(list, &tmpItem);
     tmpItem.id = 5;
+    DeleteListItem(list, &tmpItem);
+    tmpItem.id = 6;
     DeleteListItem(list, &tmpItem);
 
     TraverseListItem(list, Display);

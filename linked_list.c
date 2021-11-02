@@ -1,14 +1,14 @@
-#include "list.h"
+#include "linked_list.h"
 #include <stdlib.h>
 
-bool InitList(List **list, bool (* free)(void *item), bool (* match)(const void *itemInList, const void *item))
+bool InitList(LinkedList **list, bool (* free)(void *item), bool (* match)(const void *itemInList, const void *item))
 {
-    ListNode *head;
+    LinkedListNode *head;
     if (!MakeListNode(&head, NULL)) {
         return false;
     }
-    List *newList;
-    if ((newList = (List *)malloc(sizeof(List))) == NULL) {
+    LinkedList *newList;
+    if ((newList = (LinkedList *)malloc(sizeof(LinkedList))) == NULL) {
         FreeListNode(head);
         return false;
     }
@@ -21,9 +21,9 @@ bool InitList(List **list, bool (* free)(void *item), bool (* match)(const void 
     return true;
 }
 
-bool FreeList(List *list)
+bool FreeList(LinkedList *list)
 {
-    ListNode *current = list->head->next;
+    LinkedListNode *current = list->head->next;
     while (current != NULL) {
         list->head->next = current->next;
         list->free(current->item);
@@ -37,9 +37,9 @@ bool FreeList(List *list)
     return true;
 }
 
-bool ResetList(List *list)
+bool ResetList(LinkedList *list)
 {
-    ListNode *current = list->head->next;
+    LinkedListNode *current = list->head->next;
     while (current != NULL) {
         list->head->next = current->next;
         list->free(current->item);
@@ -49,9 +49,9 @@ bool ResetList(List *list)
     return true;
 }
 
-bool MakeListNode(ListNode **node, void *item)
+bool MakeListNode(LinkedListNode **node, void *item)
 {
-    if ((*node = (ListNode *)malloc(sizeof(ListNode))) == NULL) {
+    if ((*node = (LinkedListNode *)malloc(sizeof(LinkedListNode))) == NULL) {
         return false;
     }
     (*node)->item = item;
@@ -59,15 +59,15 @@ bool MakeListNode(ListNode **node, void *item)
     return true;
 }
 
-bool FreeListNode(ListNode *node)
+bool FreeListNode(LinkedListNode *node)
 {
     free(node);
     return true;
 }
 
-bool FindListItem(const List *list, void **item, const void *findItem)
+bool FindListItem(const LinkedList *list, void **item, const void *findItem)
 {
-    ListNode *current = list->head->next;
+    LinkedListNode *current = list->head->next;
     while (current != NULL) {
         if (list->match(current->item, findItem)) {
             *item = current->item;
@@ -78,12 +78,12 @@ bool FindListItem(const List *list, void **item, const void *findItem)
     return false;
 }
 
-bool InsertListItem(List *list, void *item, const void *afterThisItem)
+bool InsertListItem(LinkedList *list, void *item, const void *afterThisItem)
 {
-    ListNode *previous = list->head;
+    LinkedListNode *previous = list->head;
     while (previous != NULL) {
         if (list->match(previous->item, afterThisItem)) {
-            ListNode *newNode;
+            LinkedListNode *newNode;
             MakeListNode(&newNode, item);
             newNode->next = previous->next;
             previous->next = newNode;
@@ -94,9 +94,9 @@ bool InsertListItem(List *list, void *item, const void *afterThisItem)
     return false;
 }
 
-bool DeleteListItem(List *list, void *findItem)
+bool DeleteListItem(LinkedList *list, void *findItem)
 {
-    ListNode *previous = list->head, *current = list->head->next;
+    LinkedListNode *previous = list->head, *current = list->head->next;
     while (current != NULL) {
         if (list->match(current->item, findItem)) {
             previous->next = current->next;
@@ -110,9 +110,9 @@ bool DeleteListItem(List *list, void *findItem)
     return false;
 }
 
-bool TraverseListItem(List *list, bool (* invoke)(const void *item))
+bool TraverseListItem(LinkedList *list, bool (* invoke)(const void *item))
 {
-    ListNode *current = list->head->next;
+    LinkedListNode *current = list->head->next;
     while (current != NULL) {
         if (!invoke(current->item)) {
             return false;
