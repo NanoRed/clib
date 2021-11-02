@@ -23,6 +23,6 @@ bool FreeListNode(ListNode *node);
 bool FindListItem(const List *list, void **item, const void *findItem);
 bool InsertListItem(List *list, void *item, const void *afterThisItem);
 bool DeleteListItem(List *list, void *findItem);
-bool Traverse(List *list, bool (* invoke)(const void *item));
+bool TraverseListItem(List *list, bool (* invoke)(const void *item));
 
 #endif

@@ -110,7 +110,7 @@ bool DeleteListItem(List *list, void *findItem)
     return false;
 }
 
-bool Traverse(List *list, bool (* invoke)(const void *item))
+bool TraverseListItem(List *list, bool (* invoke)(const void *item))
 {
     ListNode *current = list->head->next;
     while (current != NULL) {

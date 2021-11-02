@@ -27,7 +27,7 @@ bool TestList(void)
     tmpItem.id = 5;
     DeleteListItem(list, &tmpItem);
 
-    Traverse(list, Display);
+    TraverseListItem(list, Display);
     FreeList(list);
 
     return true;
