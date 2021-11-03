@@ -7,9 +7,8 @@
 			"command": "/usr/bin/gcc",
 			"args": [
 				"-g",
-				"${file}",
-				"linked_list.c",
-				"linked_list_test.c",
+				// "${file}",
+				"*.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],

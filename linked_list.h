@@ -23,6 +23,6 @@ bool FreeListNode(LinkedListNode *node);
 bool FindListItem(const LinkedList *list, void **item, const void *findItem);
 bool InsertListItem(LinkedList *list, void *item, const void *afterThisItem);
 bool DeleteListItem(LinkedList *list, void *findItem);
-bool TraverseListItem(LinkedList *list, bool (* invoke)(const void *item));
+bool TraverseList(LinkedList *list, bool (* invoke)(const void *item));
 
 #endif

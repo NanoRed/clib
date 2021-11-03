@@ -1,67 +1,38 @@
-#include "linked_list_test.h"
-#include "linked_list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "linked_list_test.h"
+#include "linked_list.h"
+#include "item.h"
 
 bool TestList(void)
 {
     LinkedList *list;
-    InitList(&list, FreeListItem, MatchListItem);
+    InitList(&list, FreeItem, MatchItem);
 
     Item *prevItem = NULL;
     Item *newItem;
     double number;
     for (register int i = 1; i < 10; i++) {
         number = rand()/100.0;
-        MakeListItem(&newItem, i, number);
+        MakeItem(&newItem, i, number);
         InsertListItem(list, newItem, prevItem);
         prevItem = newItem;
-        printf("insert item: %d %f\n", i, number);
+        printf("insert item into list: %d %f\n", i, number);
     }
 
     Item tmpItem;
     tmpItem.id = 4;
     DeleteListItem(list, &tmpItem);
+    printf("delete item from list: %d %f\n", tmpItem.id, tmpItem.number);
     tmpItem.id = 5;
     DeleteListItem(list, &tmpItem);
+    printf("delete item from list: %d %f\n", tmpItem.id, tmpItem.number);
     tmpItem.id = 6;
     DeleteListItem(list, &tmpItem);
+    printf("delete item from list: %d %f\n", tmpItem.id, tmpItem.number);
 
-    TraverseListItem(list, Display);
+    TraverseList(list, DisplayItem);
     FreeList(list);
 
-    return true;
-}
-
-
-bool MakeListItem(Item **item, int id, double number)
-{
-    Item *newItem;
-    newItem = (Item *)malloc(sizeof(Item));
-    newItem->id = id;
-    newItem->number = number;
-    *item = newItem;
-    return true;
-}
-
-bool FreeListItem(void *item)
-{
-    free(item);
-    return true;
-}
-
-bool MatchListItem(const void *itemInList, const void *item)
-{
-    if (item == NULL) {
-        return itemInList == item;
-    } else if (itemInList == NULL) {
-        return false;
-    }
-    return ((Item *)itemInList)->id == ((Item *)item)->id;
-}
-
-bool Display(const void *item)
-{
-    printf("show item: %d %f\n", ((Item *)item)->id, ((Item *)item)->number);
     return true;
 }

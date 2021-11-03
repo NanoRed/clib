@@ -46,6 +46,7 @@ bool ResetList(LinkedList *list)
         FreeListNode(current);
         current = list->head->next;
     }
+    list->len = 0;
     return true;
 }
 
@@ -84,9 +85,12 @@ bool InsertListItem(LinkedList *list, void *item, const void *afterThisItem)
     while (previous != NULL) {
         if (list->match(previous->item, afterThisItem)) {
             LinkedListNode *newNode;
-            MakeListNode(&newNode, item);
+            if (!MakeListNode(&newNode, item)) {
+                return false;
+            }
             newNode->next = previous->next;
             previous->next = newNode;
+            list->len++;
             return true;
         }
         previous = previous->next;
@@ -102,6 +106,7 @@ bool DeleteListItem(LinkedList *list, void *findItem)
             previous->next = current->next;
             list->free(current->item);
             FreeListNode(current);
+            list->len--;
             return true;
         }
         previous = current;
@@ -110,7 +115,7 @@ bool DeleteListItem(LinkedList *list, void *findItem)
     return false;
 }
 
-bool TraverseListItem(LinkedList *list, bool (* invoke)(const void *item))
+bool TraverseList(LinkedList *list, bool (* invoke)(const void *item))
 {
     LinkedListNode *current = list->head->next;
     while (current != NULL) {
