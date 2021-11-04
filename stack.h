@@ -23,7 +23,7 @@ bool ResetStack(Stack *stack);
 bool MakeStackNode(StackNode **node, void *item);
 bool FreeStackNode(StackNode *node);
 bool PushStackItem(Stack *stack, void *item);
-bool PopStackItem(Stack *stack, void *item);
+bool PopStackItem(Stack *stack, void * restrict item);
 bool TraverseStack(Stack *stack, bool (* invoke)(const void *item));
 
 #endif

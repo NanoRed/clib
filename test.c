@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "linked_list_test.h"
 #include "stack_test.h"
+#include "queue_test.h"
 
 int main(void)
 {
@@ -16,5 +17,12 @@ int main(void)
         printf("stack test successfully\n");
     } else {
         printf("stack test failed\n");
+    }
+
+    /* testing queue */
+    if (TestQueue()) {
+        printf("queue test successfully\n");
+    } else {
+        printf("queue test failed\n");
     }
 }

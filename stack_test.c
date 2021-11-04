@@ -13,16 +13,16 @@ bool TestStack(void)
         Item *newItem;
         MakeItem(&newItem, i, number);
         PushStackItem(stack, newItem);
-        printf("push item to stack: %d %f\n", i, number);
+        printf("push item to stack: %d %f %d\n", i, number, stack->len);
     }
 
     Item tmpItem;
     PopStackItem(stack, &tmpItem);
-    printf("pop item from stack: %d %f\n", tmpItem.id, tmpItem.number);
+    printf("pop item from stack: %d %f %d\n", tmpItem.id, tmpItem.number, stack->len);
     PopStackItem(stack, &tmpItem);
-    printf("pop item from stack: %d %f\n", tmpItem.id, tmpItem.number);
+    printf("pop item from stack: %d %f %d\n", tmpItem.id, tmpItem.number, stack->len);
     PopStackItem(stack, &tmpItem);
-    printf("pop item from stack: %d %f\n", tmpItem.id, tmpItem.number);
+    printf("pop item from stack: %d %f %d\n", tmpItem.id, tmpItem.number, stack->len);
 
     TraverseStack(stack, DisplayItem);
     FreeStack(stack);

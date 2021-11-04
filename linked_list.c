@@ -30,9 +30,7 @@ bool FreeList(LinkedList *list)
         FreeListNode(current);
         current = list->head->next;
     }
-    if (!list->head) {
-        FreeListNode(list->head);
-    }
+    FreeListNode(list->head);
     free(list);
     return true;
 }
