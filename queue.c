@@ -30,7 +30,9 @@ bool FreeQueue(Queue *queue)
         FreeQueueNode(current);
         current = queue->front->next;
     }
-    FreeQueueNode(queue->front);
+    if (queue->front) {
+        FreeQueueNode(queue->front);
+    }
     free(queue);
     return true;
 }
